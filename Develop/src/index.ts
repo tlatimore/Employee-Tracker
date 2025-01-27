@@ -3,10 +3,9 @@ import Db from './db/index.js';
 
 const db = new Db();
 
-init();
+startApp();
 
-// Display logo text, load main prompts
-function init() {
+function startApp() {
   mainMenu();
 }
 
@@ -53,7 +52,6 @@ function mainMenu() {
     },
   ]).then((res: { choice: string }) => {
     const choice = res.choice;
-    // Call the appropriate function depending on what the user chose
     switch (choice) {
       case 'viewDepartments':
         viewDepartments();
@@ -227,7 +225,7 @@ function addEmployee() {
     })
     .then((res: { first_name: string; last_name: string; role_id: number; manager_id: number | null }) => {
       const { first_name, last_name, role_id, manager_id } = res;
-      db.addEmployee(first_name, last_name, role_id, manager_id ?? 0)
+      db.addEmployee(first_name, last_name, role_id, manager_id)
         .then(() => {
           console.log(`Added ${first_name} ${last_name} to the database.`);
           mainMenu();

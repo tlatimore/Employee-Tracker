@@ -1,9 +1,8 @@
 import inquirer from 'inquirer';
 import Db from './db/index.js';
 const db = new Db();
-init();
-// Display logo text, load main prompts
-function init() {
+startApp();
+function startApp() {
     mainMenu();
 }
 function mainMenu() {
@@ -49,7 +48,6 @@ function mainMenu() {
         },
     ]).then((res) => {
         const choice = res.choice;
-        // Call the appropriate function depending on what the user chose
         switch (choice) {
             case 'viewDepartments':
                 viewDepartments();
@@ -206,7 +204,7 @@ function addEmployee() {
     })
         .then((res) => {
         const { first_name, last_name, role_id, manager_id } = res;
-        db.addEmployee(first_name, last_name, role_id, manager_id ?? 0)
+        db.addEmployee(first_name, last_name, role_id, manager_id)
             .then(() => {
             console.log(`Added ${first_name} ${last_name} to the database.`);
             mainMenu();
